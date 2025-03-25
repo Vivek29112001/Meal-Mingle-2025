@@ -69,3 +69,63 @@ body {
   height: 180px;
   border-radius: 5px;
 }
+
+.filter{
+  display: flex;
+  justify-content: justify;
+  padding: 10px;
+}
+
+
+.filter-btn{
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  background-color: #d83c2d;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+.filter-btn:hover{
+  background-color: white;
+  color: #d83c2d;
+}
+
+
+.shimmer-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.shimmer-card{
+  width: 200px;
+  height: 350px;
+  margin: 20px;
+  padding: 10px;
+  background-color: #6a67673c;
+  border-radius: 5px;
+  animation: shimmer 2s infinite;
+}
+
+.login{
+  display: flex;
+  justify-content: center;
+  cursor:pointer;
+  align-items: center;
+  /* height: 100vh; */
+  color: #d83c2d;
+  font-size: 20px;
+  border:none;
+  font-weight: bold;
+  font-size: 20px;
+  /* text-align: center; */
+}
+
+.login:hover{
+  color: white;
+  background-color: #d83c2d;
+  border-radius: 5px;
+
+}

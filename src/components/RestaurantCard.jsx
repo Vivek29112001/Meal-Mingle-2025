@@ -1,26 +1,28 @@
- import { CDN_URL } from "../utils/contants";
+import { CDN_URL } from "../utils/contants";
 const RestaurantCard = (props) => {
 
-    const { resData } = props;
-    
-    const{cloudinaryImageId, name, cuisines, avgRating, costForTwo ,sla } = resData;
-  
-  
-    return (
-      <div className='res-card' style={{
-        backgroundColor: "#f0f0f0"
-      }}>
-        <img
-          className='res-logo'
-          alt="res-logo"
-          src={CDN_URL+ cloudinaryImageId} />
-        <h3>{name}</h3>
-        <h4>{cuisines.join(" , ")}</h4>
-        <h4>{avgRating}stars</h4>
-        <h4>{costForTwo}</h4>
-        <h4>{sla.deliveryTime}minutes</h4>
-      </div>
-    )
-  }
+  const { resData } = props;
 
-  export default RestaurantCard;
+  const { cloudinaryImageId, name, cuisines, avgRating, costForTwo, locality } = resData;
+
+
+  return (
+    <div className='res-card' style={{
+      backgroundColor: "#f0f0f0"
+    }}>
+      <img
+        className='res-logo'
+        alt="res-logo"
+        src={CDN_URL + 
+          cloudinaryImageId} />
+      <h3>{name}</h3>
+      <h4>{locality}</h4>
+      <h4>{cuisines.join(" , ")}</h4>
+      <h4>{avgRating}stars</h4>
+      <h4>{costForTwo}</h4>
+      {/* <h4>{slaString}minutes</h4> */}
+    </div>
+  )
+}
+
+export default RestaurantCard;
