@@ -41,6 +41,15 @@ body {
   color: white;
   border-radius: 5px;
 }
+
+.nav-items>ul > li > a{
+  text-decoration: none;
+  color: inherit;
+}
+.nav-items>ul > li > a:hover{
+  color: white;
+}
+
 .res-container{
   display: flex;
   flex-wrap: wrap;

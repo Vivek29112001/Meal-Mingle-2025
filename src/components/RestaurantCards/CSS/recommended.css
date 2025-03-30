@@ -1,0 +1,122 @@
+/* Container for the recommended section */
+.recommended-container {
+  margin: 20px auto;
+  max-width: 660px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+/* Title for the recommended section */
+.recommended-container h1 {
+  font-size: 28px;
+  color: #070707;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Card container for individual recommended items */
+.recommended-card {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.recommended-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Container for the text content */
+.container-card {
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Title of the recommended item */
+.container-card h2 {
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 10px;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Price and offer section */
+.price-offer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #d83c2d;
+}
+
+.offer {
+  font-size: 16px;
+  color: #28a745;
+  font-weight: bold;
+}
+
+/* Rating section */
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 16px;
+  color: #28a745;
+  margin-bottom: 10px;
+}
+
+/* Description of the recommended item */
+.description {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+  margin-top: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limit to 2 lines */
+  -webkit-box-orient: vertical;
+  transition: max-height 0.3s ease;
+}
+
+.description.expanded {
+  -webkit-line-clamp: unset; /* Remove line limit */
+  max-height: none; /* Allow full content to be displayed */
+}
+
+/* Styling for the toggle button */
+.toggle-button {
+  margin-top: 10px;
+  background-color: #d83c2d;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-button:hover {
+  background-color: #a82a1f;
+}
+
+/* Image styling */
+.image {
+  width: 200px;
+  height: auto;
+  margin-top: 20px;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

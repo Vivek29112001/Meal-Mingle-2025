@@ -1,0 +1,72 @@
+/* Container for the restaurant menu */
+.card-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: rgba(229, 229, 229, 0.117);
+    border-radius: 10px;
+    max-width: 700px;
+    margin: 20px auto;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+}
+
+/* Restaurant name */
+.header-name {
+    font-size: 24px;
+    color: #f70f0f;
+    font-family: 'Arial', sans-serif;
+    font-weight: bolder;
+    font-size: xx-large;
+    margin-left: 10px;
+    margin-top: -10px;
+    margin-bottom: 4px;
+}
+
+/* Menu container */
+.menu {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+/* Rating and Cost */
+.menu-info {
+    display: flex;
+    gap: 20px;
+    color: rgba(85, 85, 85, 0.9);
+    align-items: center;
+    margin-top: -15px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: green;
+}
+
+/* Cuisine types */
+.cuisine {
+    color: red;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: -15px;
+}
+
+/* Outlet Information */
+.outlet {
+    font-weight: bold;
+    color: #333;
+}
+
+.location {
+    color: rgba(85, 85, 85, 0.9);
+}
+
+.h44{
+    margin-top: -15px;
+}
