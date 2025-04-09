@@ -7,7 +7,7 @@ const ItemList = ({ items }) => {
         <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 p-4">
             {items.map((item, key) =>
                 <div key={item.card.info.id}
-                    className="w-full mx-auto my-4 bg-gradient-to-r from-white to-indigo-50 rounded-xl shadow-xl p-6 transition duration-300 ease-in-out hover:scale-105 hover:shadow-2xl border border-transparent hover:border-indigo-300">
+                    className="w-full mx-auto my-4 bg-gradient-to-r from-white to-indigo-50 rounded-xl shadow-xl p-6 transition duration-300 ease-in-out hover:scale-105 hover:shadow-2xl border border-transparent hover:border-indigo-300 flex flex-col justify-between">
                     {/* Centered image at the top */}
                     <img src={CDN_URL + (item.card.info.imageId ? item.card.info.imageId : item.card.info.defaultimageId)}
                         className="w-28 h-28 object-cover rounded-full shadow-md border-2 border-indigo-200 mx-auto" />

@@ -1,15 +1,20 @@
 import { ShimmerUI } from "./ShimmerUI";
+import React ,{ useState } from "react";
 import { RITEM_CDN_URL } from "../utils/contants";
 import { useParams } from "react-router-dom";
 import { useRestaurantMenu } from "../utils/useRestaurantMenu";
 import RestaurantCategory from "./ResComponents/RestaurantCategory";
 
 const RestaurantMenu = () => {
+
     const { resId } = useParams();
     // console.log(resId);
 
     const resInfo = useRestaurantMenu(resId); // custom hook
-    console.log(resInfo);
+    // console.log(resInfo);
+
+    const [showIndex, setShowIndex] = useState(0);
+    
 
     if (resInfo === null) return <ShimmerUI />;
 
@@ -36,8 +41,13 @@ const RestaurantMenu = () => {
             <p className="m-8 font-bold">Menu</p>
             {/* we have to do mapping to get any thing from menuCard */}
             
-            {menuCategories.map((category, key) => (
-                <RestaurantCategory key = {category?.card?.card.title} data ={category?.card?.card}/>
+            {menuCategories.map((category, index) => (
+                <RestaurantCategory 
+                    key={category?.card?.card.title} 
+                    data={category?.card?.card}
+                    showItems={index === showIndex} // true if index matches
+                    setShowIndex={() => setShowIndex(prev => prev===index ? true : index)} // toggle index on click
+                />
             ))}
         </div>
     );
