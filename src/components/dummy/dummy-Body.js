@@ -1,8 +1,8 @@
 import React from 'react';
-import RestaurantCard from './RestaurantCard';
+import RestaurantCard from '../RestaurantCard';
 // import resObj from '../utils/mockData';
 import { useState, useEffect } from 'react';
-import { ShimmerUI } from './ShimmerUI';
+import { ShimmerUI } from '../ShimmerUI';
 
 const Body = () => {
 

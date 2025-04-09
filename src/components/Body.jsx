@@ -1,58 +1,32 @@
 import React from 'react';
-import RestaurantCard from './RestaurantCard';
-// import resObj from '../utils/mockData';
-import { useState, useEffect } from 'react';
+// import '../App.css';
+import RestaurantCard, { withPromotedLabel , withisVegLAbel} from './RestaurantCard';
+import { useBody } from '../utils/useBody';
 import { ShimmerUI } from './ShimmerUI';
-
+import { Link } from 'react-router-dom';
+import { useOnlineStatus } from "../utils/useOnlineStatus";
 const Body = () => {
+  // import use boduhook (custom hook) here from useBody.jsx
 
-  const [listOfResturant, setListOfResturant] = useState([]);
+  const {
+    listOfResturant,
+    searchText,
+    setSearchText,
+    handleSearch,
+    filterTopRated,
+  } = useBody();
 
-  const [originalList, setOriginalList] = useState([]);
+  const RestaurantCardPromed = withPromotedLabel(RestaurantCard) //higher order component
+  const RestaurantisVeg = withisVegLAbel(RestaurantCard) //higher order component
 
-  const [searchText, setsearchText] = useState('');
+  const onlineStatus = useOnlineStatus()  //customHook
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // Generate random index for adding a promoted tag to one card
+  const randomIndex = Math.floor(Math.random() * listOfResturant.length);
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch(
-        '/api/dapi/restaurants/list/v5?lat=28.7040592&lng=77.10249019999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING'
-      );
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const json = await response.json();
-      console.log(json); // Log the fetched data to understand its structure
-
-      // Optional chaining to safely access nested properties
-      const restaurants = json?.data?.cards?.find(card => card.card?.card?.gridElements?.infoWithStyle?.restaurants)?.card?.card?.gridElements?.infoWithStyle?.restaurants;
-
-      if (restaurants) {
-        setListOfResturant(restaurants);
-        setOriginalList(restaurants);
-      } else {
-        console.error('Restaurants data not found');
-      }
-    } catch (error) {
-      console.error('Fetch error:', error);
-    }
-  };
-
-
-  const handleSearch = () => {
-    const filterRestaurants = originalList.filter((res) => {
-      return res.info.name.toLowerCase().includes(searchText.toLowerCase());
-    }
-    );
-    setListOfResturant(filterRestaurants);
-
+  if (onlineStatus === false) {
+    return <h1>Looks like you are offline Please check internet connection</h1>
   }
-
 
   if (listOfResturant.length === 0) {
     return <ShimmerUI />;
@@ -60,48 +34,68 @@ const Body = () => {
 
   return listOfResturant.length === 0 ? (
     <ShimmerUI />
-  ) : (
-    <div className="body">
-      <div className="filter">
-
-        <div className="search">
+  ) : ( 
+    <div className="container mx-auto p-4">
+      <div className="flex flex-col sm:flex-row items-center justify-between my-4">
+        <div className="flex items-center w-full sm:w-auto">
           <input
             type="text"
             placeholder="search-box"
             value={searchText}
             onChange={(e) => {
-              setsearchText(e.target.value);
-            }} />
+              setSearchText(e.target.value);
+            }}
+            className="border border-gray-300 rounded px-4 py-2 w-full"
+          />
           <button
             onClick={() => {
-              // console.log(searchText)
               handleSearch();
             }}
-          >Search
+            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded ml-2"
+          >
+            Search
           </button>
-
-
         </div>
-        <button className='filter-btn'
+        <button
+          className="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded mt-4 sm:mt-0"
           onClick={() => {
             const filterList = listOfResturant.filter(
               (res) => res.info.avgRating > 4
             );
-            setListOfResturant(filterList);
-          }}>
+            filterTopRated(filterList);
+          }}
+        >
           Top Rated Restaurants
         </button>
-
       </div>
-      <div className="res-container">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {
-          listOfResturant.map((resData) => {
-            return <RestaurantCard key={resData.info.id} resData={resData.info} />
-          })
+          listOfResturant.map((resData, index) => (
+            <Link
+              key={resData.info.id}
+              to={"/restaurants/" + resData.info.id}
+            >
+              {/* if restaurant is already promoted or if it's the randomly selected card */}
+              {(resData.info.promoted || index === randomIndex) ? (
+                <RestaurantCardPromed resData={resData.info} />
+              ) : (
+                <RestaurantCard resData={resData.info} />
+              )},
+              {
+                (resData.info.isVeg || index === randomIndex) ? (
+                  <RestaurantisVeg resData={resData.info} />
+                ) : (
+                  <RestaurantCard resData={resData.info} />
+                )
+              }
+            </Link>
+          ))
         }
       </div>
     </div>
   );
 };
+
+
 
 export default Body;

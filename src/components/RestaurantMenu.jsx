@@ -1,53 +1,45 @@
-import { useState, useEffect } from "react";
-import "./CSS/restaurant.css";
-import { FaStar } from "react-icons/fa";
 import { ShimmerUI } from "./ShimmerUI";
-import Recommended from "./RestaurantCards/Recomanded";
+import { RITEM_CDN_URL } from "../utils/contants";
+import { useParams } from "react-router-dom";
+import { useRestaurantMenu } from "../utils/useRestaurantMenu";
+import RestaurantCategory from "./ResComponents/RestaurantCategory";
 
 const RestaurantMenu = () => {
-    const [resInfo, setResInfo] = useState(null);
+    const { resId } = useParams();
+    // console.log(resId);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await fetch(
-                    "/api/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=29.2182644&lng=79.5129767&restaurantId=148023&catalog_qa=undefined&submitAction=ENTER"
-                );
-                const json = await data.json();
-                console.log("Fetched Data:", json);
-                setResInfo(json.data);
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        };
-        fetchData();
-    }, []);
+    const resInfo = useRestaurantMenu(resId); // custom hook
+    console.log(resInfo);
 
-    if (resInfo === null) return <ShimmerUI />
+    if (resInfo === null) return <ShimmerUI />;
 
-    const { name, avgRating, costForTwoMessage, cuisines, totalRatingsString, sla } = resInfo?.cards[2]?.card.card.info || {};
+    const restaurantName = resInfo?.cards?.[0]?.card?.card?.text || "Restaurant Name Not Available";
+
+    console.log("All cards:", resInfo?.cards);
+
+    // Dynamically find the menu card (adjust index if needed)
+    const menuCard = resInfo?.cards?.find(card => card?.groupedCard?.cardGroupMap?.REGULAR);
+    console.log("Menu card:", menuCard);
+
+    // Filter categories whose type is ItemCategory
+    const menuCategories = menuCard
+        ? menuCard.groupedCard.cardGroupMap.REGULAR.cards.filter(
+            c => c.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+        )
+        : [];
+    console.log("Menu categories:", menuCategories);
+
 
     return (
-        <>
-            <div className="card-container">
-                <h1 className="header-name">{name}</h1>
-                <div className="menu">
-                    <div className="menu-info">
-                        <h4 className="rating">
-                            <FaStar color="green" /> {avgRating} ({totalRatingsString})
-                        </h4>
-                        <h4>{costForTwoMessage}</h4>
-                    </div>
-                    <h4 className="cuisine">{Array.isArray(cuisines) ? cuisines.join(", ") : "Cuisines not available"}</h4>
-                    <div className="menu-info">
-                        <p className="outlet">Outlet</p>
-                        <p className="location">Haldwani Locality</p>
-                    </div>
-                    <h4 className="h44">{sla?.deliveryTime} mins</h4>
-                </div>
-            </div>
-            <Recommended />
-        </>
+        <div className="text-center">
+            <h1 className="text-3xl font-bold">{restaurantName}</h1>
+            <p className="m-8 font-bold">Menu</p>
+            {/* we have to do mapping to get any thing from menuCard */}
+            
+            {menuCategories.map((category, key) => (
+                <RestaurantCategory key = {category?.card?.card.title} data ={category?.card?.card}/>
+            ))}
+        </div>
     );
 };
 
