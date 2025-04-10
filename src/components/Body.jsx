@@ -1,10 +1,11 @@
-import React from 'react';
+import React , {useContext} from 'react';
 // import '../App.css';
-import RestaurantCard, { withPromotedLabel , withisVegLAbel} from './RestaurantCard';
+import RestaurantCard, { withPromotedLabel, withisVegLAbel } from './RestaurantCard';
 import { useBody } from '../utils/useBody';
 import { ShimmerUI } from './ShimmerUI';
 import { Link } from 'react-router-dom';
 import { useOnlineStatus } from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext.jsx"; // Corrected import
 const Body = () => {
   // import use boduhook (custom hook) here from useBody.jsx
 
@@ -32,9 +33,12 @@ const Body = () => {
     return <ShimmerUI />;
   }
 
+  const {loggedInUser,setUserName} = useContext(UserContext);
+
+
   return listOfResturant.length === 0 ? (
     <ShimmerUI />
-  ) : ( 
+  ) : (
     <div className="container mx-auto p-4">
       <div className="flex flex-col sm:flex-row items-center justify-between my-4">
         <div className="flex items-center w-full sm:w-auto">
@@ -67,6 +71,12 @@ const Body = () => {
         >
           Top Rated Restaurants
         </button>
+        <div className='search m-4 p-4 flex items-center'>
+          <label>UserName:</label>
+          <input className='border border-black p-2' 
+          value={loggedInUser}
+          onChange= {(e)=> setUserName(e.target.value)}/>
+        </div>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {
