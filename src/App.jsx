@@ -9,6 +9,10 @@ import Error from './components/Error';
 import ResturantMenu from './components/RestaurantMenu';
 import { ShimmerUI } from './components/ShimmerUI.jsx';
 import UserContext from './utils/UserContext.jsx';
+import { Provider } from 'react-redux';  // redux provider connect redux to react
+import appStore from './components/redux/appstore.jsx'; // redux store
+import Cart from './components/Cart.jsx';
+
 
 const Grocery = lazy(() => import('./components/Grocery/Grocery.jsx'));
 
@@ -17,7 +21,7 @@ const AppLayout = () => {
 
   const [userName, setUserName] = useState();
 
-  useEffect (() => {
+  useEffect(() => {
     const data = {
       name: "vivek sharma"
     };
@@ -25,14 +29,16 @@ const AppLayout = () => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ loggedInUser: userName , setUserName}}>
-      <div className="min-h-screen bg-gray-50">
-        <Header />
-        <div className="container mx-auto p-4">
-          <Outlet />
+    <Provider store={appStore}>
+      <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+        <div className="min-h-screen bg-gray-50">
+          <Header />
+          <div className="container mx-auto p-4">
+            <Outlet />
+          </div>
         </div>
-      </div>
-    </UserContext.Provider>
+      </UserContext.Provider>
+    </Provider>
   )
 }
 
@@ -54,6 +60,9 @@ const appRouter = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        path: "/cart", element: <Cart />
+      }
     ],
     errorElement: <Error />,
   },

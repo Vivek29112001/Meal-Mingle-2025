@@ -81,23 +81,16 @@ const Body = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {
           listOfResturant.map((resData, index) => (
-            <Link
-              key={resData.info.id}
-              to={"/restaurants/" + resData.info.id}
-            >
-              {/* if restaurant is already promoted or if it's the randomly selected card */}
+            <Link key={resData.info.id} to={"/restaurants/" + resData.info.id}>
               {(resData.info.promoted || index === randomIndex) ? (
                 <RestaurantCardPromed resData={resData.info} />
               ) : (
-                <RestaurantCard resData={resData.info} />
-              )},
-              {
-                (resData.info.isVeg || index === randomIndex) ? (
+                resData.info.isVeg ? (
                   <RestaurantisVeg resData={resData.info} />
                 ) : (
                   <RestaurantCard resData={resData.info} />
                 )
-              }
+              )}
             </Link>
           ))
         }
