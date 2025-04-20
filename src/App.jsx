@@ -2,6 +2,7 @@ import './App.css'
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import Header from './components/Header';
 import Body from './components/Body';
+// import Main from './components/home/main';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import About from './components/About';
 import Contact from './components/Contact';
@@ -34,6 +35,7 @@ const AppLayout = () => {
         <div className="min-h-screen bg-gray-50">
           <Header />
           <div className="container mx-auto p-4">
+            {/* Outlet renders the matched child route based on the current URL */}
             <Outlet />
           </div>
         </div>
@@ -49,6 +51,7 @@ const appRouter = createBrowserRouter([
     element: <AppLayout />,
     children: [
       { path: "/", element: <Body /> },
+      // {path: "/", element: <Main />},
       { path: "/about", element: <About /> },
       { path: "/contact", element: <Contact /> },
       { path: "/restaurants/:resId", element: <ResturantMenu /> },

@@ -1,10 +1,10 @@
 import React , {useContext} from 'react';
-// import '../App.css';
 import RestaurantCard, { withPromotedLabel, withisVegLAbel } from './RestaurantCard';
 import { useBody } from '../utils/useBody';
 import { ShimmerUI } from './ShimmerUI';
 import { Link } from 'react-router-dom';
 import { useOnlineStatus } from "../utils/useOnlineStatus";
+import Main from './home/main.jsx';
 import UserContext from "../utils/UserContext.jsx"; // Corrected import
 const Body = () => {
   // import use boduhook (custom hook) here from useBody.jsx
@@ -39,7 +39,8 @@ const Body = () => {
   return listOfResturant.length === 0 ? (
     <ShimmerUI />
   ) : (
-    <div className="container mx-auto p-4">
+    <div className="bg-gradient-to-r from-purple-200 to-blue-100 p-6 rounded-lg shadow-2xl transform hover:scale-105 transition ease-in-out duration-500 flex flex-col container mx-auto p-4">
+      <Main />
       <div className="flex flex-col sm:flex-row items-center justify-between my-4">
         <div className="flex items-center w-full sm:w-auto">
           <input
@@ -78,7 +79,12 @@ const Body = () => {
           onChange= {(e)=> setUserName(e.target.value)}/>
         </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+
+
+
+
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {
           listOfResturant.map((resData, index) => (
             <Link key={resData.info.id} to={"/restaurants/" + resData.info.id}>

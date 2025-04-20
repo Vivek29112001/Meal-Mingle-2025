@@ -9,3 +9,4 @@ const appStore = configureStore({
 } //configure the store with the reducer}
 )
 export default appStore;
+

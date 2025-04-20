@@ -1,5 +1,6 @@
 import { ShimmerUI } from "./ShimmerUI";
-import React ,{ useState } from "react";
+import React, { useState, useContext } from "react";
+import UserContext from "../utils/UserContext.jsx";
 import { RITEM_CDN_URL } from "../utils/contants";
 import { useParams } from "react-router-dom";
 import { useRestaurantMenu } from "../utils/useRestaurantMenu";
@@ -14,6 +15,9 @@ const RestaurantMenu = () => {
     // console.log(resInfo);
 
     const [showIndex, setShowIndex] = useState(0);
+
+    // Access userName from the context
+    const { loggedInUser } = useContext(UserContext);
     
 
     if (resInfo === null) return <ShimmerUI />;
@@ -36,8 +40,9 @@ const RestaurantMenu = () => {
 
 
     return (
-        <div className="text-center">
+        <div className="text-center ">
             <h1 className="text-3xl font-bold">{restaurantName}</h1>
+            <h2>Welcome, {loggedInUser ? loggedInUser : 'Guest'}</h2>
             <p className="m-8 font-bold">Menu</p>
             {/* we have to do mapping to get any thing from menuCard */}
             
